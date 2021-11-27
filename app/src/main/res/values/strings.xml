@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Patitas</string>
+    <string name="btn_login">Ingresar</string>
+    <string name="hint_ingresar_login">Ingrese su usuario</string>
+    <string name="hint_ingresar_pass">Ingrese su contraseña</string>
+    <string name="label_tipo_animal">Tipo de animal</string>
+    <string name="title_toolbar">Patitas Felices</string>
+    <string name="name_animal">Hamburgueso</string>
+    <string name="name_duenio">Nelson Yunga</string>
+    <string name="cant_mascotas">Total 3 Mascotas</string>
+</resources>

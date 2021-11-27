@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.HomeActivity"
+    android:background="@color/colorSmoke"
+    >
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/purple_500"
+        app:logo="@drawable/logo_pet"
+        app:title="@string/title_toolbar"
+        app:titleTextColor="@color/white"
+        app:titleMarginStart="@dimen/padding_min"
+        app:menu="@menu/menu_home"
+        >
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="?actionBarSize"
+        android:layout_marginLeft="@dimen/padding_min"
+        android:layout_marginRight="@dimen/padding_min"
+        android:layout_marginBottom="?actionBarSize"
+        >
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center|end"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_tipo_animal"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:layout_marginRight="@dimen/margin_bottom_min"
+                    >
+                </TextView>
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </androidx.appcompat.widget.AppCompatSpinner>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/RecyclerViewAnimales"
+            android:layout_marginTop="@dimen/padding_min"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
+            tools:listitem="@layout/item_animal"
+            >
+        </androidx.recyclerview.widget.RecyclerView>
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        android:background="@drawable/round_textview"
+        android:layout_height="?actionBarSize"
+        android:text="@string/cant_mascotas"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_recyclerview_item"
+        android:maxLines="1"
+        android:textStyle="bold"
+        >
+    </TextView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

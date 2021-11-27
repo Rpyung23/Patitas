@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_min">20dp</dimen>
+    <dimen name="margin_bottom_min">10dp</dimen>
+    <dimen name="padding_min_">5dp</dimen>
+    <dimen name="cardview_radius_item">15dp</dimen>
+    <dimen name="size_recyclerview_item">20sp</dimen>
+    <dimen name="margin_bottom_min_">5dp</dimen>
+
+</resources>
