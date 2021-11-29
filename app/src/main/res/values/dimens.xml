@@ -6,5 +6,9 @@
     <dimen name="cardview_radius_item">15dp</dimen>
     <dimen name="size_recyclerview_item">20sp</dimen>
     <dimen name="margin_bottom_min_">5dp</dimen>
+    <dimen name="alto_animal_item">75dp</dimen>
+    <dimen name="corderChip">5dp</dimen>
+    <dimen name="textSize_min">20sp</dimen>
+    <dimen name="textSize_medium">25sp</dimen>
 
 </resources>

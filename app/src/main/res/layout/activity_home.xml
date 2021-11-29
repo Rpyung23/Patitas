@@ -10,13 +10,14 @@
     >
 
     <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/idMaterialToolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:background="@color/purple_500"
-        app:logo="@drawable/logo_pet"
+        app:navigationIcon="@drawable/logo_pet"
+        app:navigationIconTint="@color/white"
         app:title="@string/title_toolbar"
         app:titleTextColor="@color/white"
-        app:titleMarginStart="@dimen/padding_min"
         app:menu="@menu/menu_home"
         >
     </com.google.android.material.appbar.MaterialToolbar>
@@ -50,10 +51,19 @@
                     android:layout_marginRight="@dimen/margin_bottom_min"
                     >
                 </TextView>
-                <androidx.appcompat.widget.AppCompatSpinner
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                </androidx.appcompat.widget.AppCompatSpinner>
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                    >
+                    <AutoCompleteTextView
+                        android:id="@+id/idAutoCompleteTypeAnimalList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        >
+                    </AutoCompleteTextView>
+                </com.google.android.material.textfield.TextInputLayout>
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -73,6 +83,7 @@
 
 
     <TextView
+        android:id="@+id/totRecyclerView"
         android:layout_width="match_parent"
         android:layout_gravity="bottom"
         android:background="@drawable/round_textview"

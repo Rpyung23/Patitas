@@ -6,11 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.RegisterActivity">
+
     <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/idMaterialToolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:background="@color/purple_500"
-        app:navigationIcon="@drawable/logo_pet"
+        app:navigationIcon="@drawable/back"
         app:navigationIconTint="@color/white"
         app:title="@string/title_toolbar"
         app:titleTextColor="@color/white"
@@ -18,174 +20,308 @@
         >
     </com.google.android.material.appbar.MaterialToolbar>
 
-   <ScrollView
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:scrollbars="vertical"
-       android:layout_marginTop="?actionBarSize"
-       >
-       <androidx.appcompat.widget.LinearLayoutCompat
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:orientation="vertical"
-           android:layout_marginTop="@dimen/padding_min"
-           android:layout_marginRight="@dimen/padding_min"
-           android:layout_marginLeft="@dimen/padding_min"
-           >
-           <com.google.android.material.textfield.TextInputLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-               android:layout_marginBottom="@dimen/margin_bottom_min_"
-               >
-               <com.google.android.material.textfield.TextInputEditText
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content">
-               </com.google.android.material.textfield.TextInputEditText>
-           </com.google.android.material.textfield.TextInputLayout>
-           <com.google.android.material.textfield.TextInputLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-               android:layout_marginBottom="@dimen/margin_bottom_min_"
-               >
-               <com.google.android.material.textfield.TextInputEditText
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content">
-               </com.google.android.material.textfield.TextInputEditText>
-           </com.google.android.material.textfield.TextInputLayout>
-           <com.google.android.material.textfield.TextInputLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-               android:layout_marginBottom="@dimen/margin_bottom_min_"
-               >
-               <com.google.android.material.textfield.TextInputEditText
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content">
-               </com.google.android.material.textfield.TextInputEditText>
-           </com.google.android.material.textfield.TextInputLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?actionBarSize"
+        android:scrollbars="vertical">
 
-           <RadioGroup
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:orientation="horizontal"
-               >
-               <com.google.android.material.radiobutton.MaterialRadioButton
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content">
-               </com.google.android.material.radiobutton.MaterialRadioButton>
-               <com.google.android.material.radiobutton.MaterialRadioButton
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content">
-               </com.google.android.material.radiobutton.MaterialRadioButton>
-           </RadioGroup>
-           <RadioGroup
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:orientation="horizontal"
-               >
-               <com.google.android.material.radiobutton.MaterialRadioButton
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content">
-               </com.google.android.material.radiobutton.MaterialRadioButton>
-               <com.google.android.material.radiobutton.MaterialRadioButton
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content">
-               </com.google.android.material.radiobutton.MaterialRadioButton>
-               <com.google.android.material.radiobutton.MaterialRadioButton
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content">
-               </com.google.android.material.radiobutton.MaterialRadioButton>
-           </RadioGroup>
-           <RadioGroup
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:orientation="horizontal"
-               >
-               <com.google.android.material.radiobutton.MaterialRadioButton
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content">
-               </com.google.android.material.radiobutton.MaterialRadioButton>
-               <com.google.android.material.radiobutton.MaterialRadioButton
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content">
-               </com.google.android.material.radiobutton.MaterialRadioButton>
-               <com.google.android.material.radiobutton.MaterialRadioButton
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content">
-               </com.google.android.material.radiobutton.MaterialRadioButton>
-           </RadioGroup>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_min"
+            android:layout_marginTop="@dimen/padding_min"
+            android:layout_marginRight="@dimen/padding_min"
+            android:orientation="vertical">
 
-           <com.google.android.material.textfield.TextInputLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-               android:layout_marginBottom="@dimen/margin_bottom_min_"
-               >
-               <com.google.android.material.textfield.TextInputEditText
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content">
-               </com.google.android.material.textfield.TextInputEditText>
-           </com.google.android.material.textfield.TextInputLayout>
-           <com.google.android.material.textfield.TextInputLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-               android:layout_marginBottom="@dimen/margin_bottom_min_"
-               >
-               <com.google.android.material.textfield.TextInputEditText
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content">
-               </com.google.android.material.textfield.TextInputEditText>
-           </com.google.android.material.textfield.TextInputLayout>
-           <com.google.android.material.textfield.TextInputLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-               android:layout_marginBottom="@dimen/margin_bottom_min_"
-               >
-               <com.google.android.material.textfield.TextInputEditText
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content">
-               </com.google.android.material.textfield.TextInputEditText>
-           </com.google.android.material.textfield.TextInputLayout>
-           <com.google.android.material.textfield.TextInputLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-               android:layout_marginBottom="@dimen/margin_bottom_min_"
-               >
-               <com.google.android.material.textfield.TextInputEditText
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content">
-               </com.google.android.material.textfield.TextInputEditText>
-           </com.google.android.material.textfield.TextInputLayout>
-           <com.google.android.material.textfield.TextInputLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-               android:layout_marginBottom="@dimen/margin_bottom_min_"
-               >
-               <com.google.android.material.textfield.TextInputEditText
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content">
-               </com.google.android.material.textfield.TextInputEditText>
-           </com.google.android.material.textfield.TextInputLayout>
-           <com.google.android.material.textfield.TextInputLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-               android:layout_marginBottom="@dimen/margin_bottom_min_"
-               >
-               <com.google.android.material.textfield.TextInputEditText
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content">
-               </com.google.android.material.textfield.TextInputEditText>
-           </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_bottom_min_">
 
-       </androidx.appcompat.widget.LinearLayoutCompat>
-   </ScrollView>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/idRegisterNameMascota"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/name_mascota">
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/type_mascota">
+            </TextView>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_bottom_min_">
+
+                <AutoCompleteTextView
+                    android:id="@+id/idAutoCompleteTypeAnimalList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none">
+                </AutoCompleteTextView>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_bottom_min_">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/idTextInputCalendar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/fecha_nacimiento_mascota">
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/question_chip">
+            </TextView>
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/idChipRegisterYes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:buttonTint="@color/purple_700"
+                    android:checked="true"
+                    android:text="@string/si">
+                </com.google.android.material.radiobutton.MaterialRadioButton>
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/idChipRegisterNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:buttonTint="@color/purple_700"
+                    android:text="@string/no">
+                </com.google.android.material.radiobutton.MaterialRadioButton>
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="@string/question_vacuna_day">
+            </TextView>
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/idVacunaRegisterYes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    app:buttonTint="@color/purple_700"
+                    android:text="@string/si">
+                </com.google.android.material.radiobutton.MaterialRadioButton>
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/idVacunaRegisterNo"
+                    android:layout_width="wrap_content"
+                    app:buttonTint="@color/purple_700"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no">
+                </com.google.android.material.radiobutton.MaterialRadioButton>
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/idVacunaRegisterYesNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:buttonTint="@color/purple_700"
+                    android:text="@string/talvez">
+                </com.google.android.material.radiobutton.MaterialRadioButton>
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/question_inscription">
+            </TextView>
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/idVacunaInscriptionYes"
+                    android:layout_width="wrap_content"
+                    app:buttonTint="@color/purple_700"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/si">
+                </com.google.android.material.radiobutton.MaterialRadioButton>
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/idVacunaInscriptionNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:buttonTint="@color/purple_700"
+                    android:text="@string/no">
+                </com.google.android.material.radiobutton.MaterialRadioButton>
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/idVacunaInscriptionYesNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:buttonTint="@color/purple_700"
+                    android:text="@string/talvez">
+                </com.google.android.material.radiobutton.MaterialRadioButton>
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tamanio_mascota">
+            </TextView>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_bottom_min_"
+                android:id="@+id/AutoCompleteRegisterTypeMascota"
+                >
+
+                <AutoCompleteTextView
+                    android:id="@+id/idAutoCompleteTamanioAnimal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none">
+                </AutoCompleteTextView>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_bottom_min_">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/idRegisterPesoMascota"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/peso_gramos"
+                    android:inputType="numberDecimal">
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_bottom_min_">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/idRegisterNameDuenio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/question_name_duenio">
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_bottom_min_"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/idRegisterEmailDuenio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress">
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_bottom_min_"
+                app:prefixText="@string/prefixPhoneArea"
+                app:counterEnabled="true"
+                app:counterMaxLength="9"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/idRegisterPhoneDuenio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/phone"
+                    android:inputType="phone"
+                    >
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_bottom_min_">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/idRegisterDirDuenio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/direction"
+                    android:inputType="text"
+                    >
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="?actionBarSize"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:id="@+id/idbtnCancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/padding_min"
+                    android:layout_weight="0.5"
+                    android:text="@string/cancel"
+                    android:textColor="@android:color/holo_red_dark"
+                    app:strokeColor="@android:color/holo_red_dark">
+                </com.google.android.material.button.MaterialButton>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/idbtnSave"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="@string/save">
+                </com.google.android.material.button.MaterialButton>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </ScrollView>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

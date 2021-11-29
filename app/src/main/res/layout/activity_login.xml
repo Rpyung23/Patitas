@@ -14,7 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:elevation="4dp"
-        app:shape_arc_cropDirection="outside"
         app:shape_arc_height="20dp"
         app:shape_arc_position="bottom"
         >
@@ -80,7 +79,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnLogin"
+            android:id="@+id/btnLogin_"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:text="@string/btn_login"
@@ -89,6 +88,7 @@
             android:paddingLeft="@dimen/padding_min"
             >
         </com.google.android.material.button.MaterialButton>
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

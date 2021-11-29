@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.DetalleActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/idMaterialToolbarDetails"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/purple_700"
+        style="@style/ToolbarLogoWhite"
+        app:navigationIconTint="@color/white"
+        app:navigationIcon="@drawable/back"
+        app:title="@string/title_toolbar"
+        app:titleTextColor="@color/white"
+        app:menu="@menu/menu_details"
+        >
+    </com.google.android.material.appbar.MaterialToolbar>
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="?actionBarSize"
+        android:gravity="center_horizontal"
+        >
+        <TextView
+            android:layout_marginTop="@dimen/padding_min"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/name_mascota"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSize_min"
+            >
+        </TextView>
+        <TextView
+            android:layout_marginTop="@dimen/padding_min"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/datos_mascota"
+            >
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/type_mascota"
+            >
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fecha_nacimiento_mascota"
+            >
+        </TextView>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/id_Chip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/question_chip"
+            app:chipBackgroundColor="@android:color/holo_blue_dark"
+            app:chipCornerRadius="@dimen/corderChip"
+            />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/id_Vacunation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/question_vacuna_day"
+            app:chipBackgroundColor="@android:color/holo_green_light"
+            app:chipCornerRadius="@dimen/corderChip"
+            />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/id_Inscription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/question_inscription"
+            app:chipBackgroundColor="@android:color/holo_orange_light"
+            app:chipCornerRadius="@dimen/corderChip"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/cat"
+            >
+        </androidx.appcompat.widget.AppCompatImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/peso_gramos"
+            >
+        </TextView>
+        <TextView
+            android:layout_marginTop="@dimen/padding_min"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/datos_duenio"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSize_min"
+            >
+        </TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/name_duenio"
+            >
+        </TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/email"
+            >
+        </TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/phone"
+            >
+        </TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/direction"
+            >
+        </TextView>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

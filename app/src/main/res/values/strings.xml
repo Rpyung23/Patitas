@@ -8,4 +8,45 @@
     <string name="name_animal">Hamburgueso</string>
     <string name="name_duenio">Nelson Yunga</string>
     <string name="cant_mascotas">Total 3 Mascotas</string>
+    <string name="name_mascota">Nombre de la mascota</string>
+    <string name="fecha_nacimiento_mascota">Fecha de nacimiento</string>
+    <string name="question_chip">¿Tiene chip?</string>
+    <string name="si">Si</string>
+    <string name="no">No</string>
+    <string name="question_vacuna_day">¿Vacuna al día?</string>
+    <string name="talvez">No sabe</string>
+    <string name="question_inscription">¿Tiene inscripción?</string>
+    <string name="peso_gramos">Peso en gramos</string>
+    <string name="question_name_duenio">Nombre del dueño</string>
+    <string name="email">Email</string>
+    <string name="phone">Teléfono</string>
+    <string name="direction">Dirección</string>
+    <string name="type_mascota">Tipo de mascota</string>
+    <string name="tamanio_mascota">Tamaño de la mascota</string>
+    <string name="cancel">Cancelar</string>
+    <string name="save">Guardar</string>
+    <string name="all">Todos</string>
+    <string name="prefixPhoneArea">+569</string>
+    <string name="datos_mascota">Datos de la mascota</string>
+    <string name="datos_duenio">Datos del dueño</string>
+    <string name="question_delete">¿Esta seguro que desea eliminar la mascota?</string>
+    <string name="accept">Aceptar</string>
+    <string-array name="typePets">
+        <item>Todos</item>
+        <item>Perro</item>
+        <item>Gato</item>
+        <item>Conejo</item>
+        <item>Tortuga</item>
+        <item>Serpiente</item>
+        <item>Hámster</item>
+        <item>Huron</item>
+        <item>Canario</item>
+        <item>Pez payaso</item>
+        <item>Loro</item>
+    </string-array>
+    <string-array name="tamPets">
+        <item>Pequeño</item>
+        <item>Mediano</item>
+        <item>Grande</item>
+    </string-array>
 </resources>
