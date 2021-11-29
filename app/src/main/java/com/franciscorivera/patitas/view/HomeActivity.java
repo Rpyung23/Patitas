@@ -1,9 +1,11 @@
 package com.franciscorivera.patitas.view;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
@@ -38,6 +40,9 @@ public class HomeActivity extends AppCompatActivity implements OnClickListenerRe
     private cAdapterMascotas oAdapterMascotas;
     private cMascotasSQL oMascotasSQL;
     private TextView oTextViewTotalRecyclerView;
+    private int REQUESTCODEDETALLE = 500;
+    private int oPositionSelectRecyclerView = 0;
+    private String oStringMascotaSelect = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -63,7 +68,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListenerRe
     {
         oAdapterMascotas = new cAdapterMascotas(this.oMascotaArrayList,this,this.oRecyclerViewMascotas);
         this.oRecyclerViewMascotas.setAdapter(oAdapterMascotas);
-        getListMascotas(null);
+        getListMascotas(oStringMascotaSelect);
     }
 
     private void getListMascotas(String typeMascota)
@@ -86,7 +91,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListenerRe
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
                //Toast.makeText(HomeActivity.this, oStringMascotas[position].toString(), Toast.LENGTH_SHORT).show();
-                getListMascotas(position == 0 ? null : oStringMascotas[position]);
+                oStringMascotaSelect = position == 0 ? null : oStringMascotas[position];
+                getListMascotas(oStringMascotaSelect);
             }
         });
         this.oMaterialToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -115,9 +121,26 @@ public class HomeActivity extends AppCompatActivity implements OnClickListenerRe
     @Override
     public void OnClick(int position)
     {
+        oPositionSelectRecyclerView = position;
+
         cMascota oM = this.oMascotaArrayList.get(position);
         Intent oI = new Intent(HomeActivity.this,DetalleActivity.class);
-        oI.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(oI);
+        //oI.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        oI.putExtra("mascota",oM.getNameMascota());
+        startActivityForResult(oI,REQUESTCODEDETALLE);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
+    {
+
+        if (requestCode == REQUESTCODEDETALLE && resultCode == Activity.RESULT_OK)
+        {
+            if (data!=null && data.getBooleanExtra("bandera",false) == true)
+            {
+                getListMascotas(oStringMascotaSelect);
+            }
+        }
     }
 }

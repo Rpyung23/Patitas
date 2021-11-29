@@ -21,7 +21,7 @@ public class MascotasDbHelper extends SQLiteOpenHelper
     {
         db.execSQL("create table if not exists mascotas(name_mascota TEXT PRIMARY KEY," +
                 "type_mascota TEXT NOT NULL,date_mascota TEXT NOT NULL," +
-                "chip BOOLEAN NOT NULL,vacuna BOOLEAN,inscription BOOLEAN,tamnio TEXT NOT NULL" +
+                "chip BOOLEAN NOT NULL,vacuna INTEGER,inscription INTEGER,tamnio TEXT NOT NULL" +
                 ",peso REAL NOT NULL,name_duenio TEXT NOT NULL,email_duenio TEXT NOT NULL" +
                 ",phone_duenio TEXT NOT NULL,dir_duenio TEXT NOT NULL)");
     }

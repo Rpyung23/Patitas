@@ -38,14 +38,59 @@ public class cMascotasSQL
         while (oCursor.moveToNext())
         {
             cDuenio oD = new cDuenio();
-            oD.setNameDuenio(oCursor.getString(0));
+            oD.setNameDuenio(oCursor.getString(2));
             cMascota oM = new cMascota(oD);
-            oM.setNameMascota(oCursor.getString(2));
+            oM.setNameMascota(oCursor.getString(0));
             oM.setTypeMascota(oCursor.getString(1));
             oMascotaArrayList.add(oM);
         }
 
         return oMascotaArrayList;
+    }
+
+
+    public boolean deleteDataBaseMascota(String name)
+    {
+        try{
+            this.oSqLiteDatabaseMascota = this.oMascotasDbHelper.getWritableDatabase();
+            String sql_ = "delete from mascotas where name_mascota = '"+name+"'";
+            this.oSqLiteDatabaseMascota.execSQL(sql_);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
+    public cMascota readDataBase(String name)
+    {
+        cDuenio oD = new cDuenio();
+        cMascota oM = new cMascota(oD);
+
+        this.oSqLiteDatabaseMascota = this.oMascotasDbHelper.getReadableDatabase();
+        String sql_ = "select * from mascotas where name_mascota = '"+name+"'";
+        Cursor oCursor = this.oSqLiteDatabaseMascota.rawQuery(sql_,null);
+        Log.e("Cursor"," : "+oCursor.getCount());
+        Log.e("SQL",sql_);
+        while (oCursor.moveToNext())
+        {
+
+            oM.getoD().setNameDuenio(oCursor.getString(8));
+            oM.getoD().setPhoneDuenio(oCursor.getString(10));
+            oM.getoD().setEmailDuenio(oCursor.getString(9));
+            oM.getoD().setDirDuenio(oCursor.getString(11));
+
+            oM.setDateMascota(oCursor.getString(2));
+            oM.setPesoMascota(oCursor.getDouble(7));
+            oM.setTypeMascota(oCursor.getString(1));
+            oM.setNameMascota(oCursor.getString(0));
+            oM.setVacuna(oCursor.getInt(4));
+            oM.setChip(oCursor.getInt(3) == 1 ? true : false);
+            oM.setInscription(oCursor.getInt(5));
+            oM.setTamMascota(oCursor.getString(6));
+
+        }
+
+        return oM;
     }
 
     public boolean registerMascota(cMascota oM){

@@ -6,8 +6,8 @@ public class cMascota
     private String typeMascota;
     private String dateMascota;
     private boolean isChip;
-    private boolean isVacuna;
-    private boolean isInscription;
+    private int isVacuna;
+    private int isInscription;
     private String tamMascota;
     private double pesoMascota;
     private cDuenio oD;
@@ -49,19 +49,19 @@ public class cMascota
         isChip = chip;
     }
 
-    public boolean isVacuna() {
+    public int isVacuna() {
         return isVacuna;
     }
 
-    public void setVacuna(boolean vacuna) {
+    public void setVacuna(int vacuna) {
         isVacuna = vacuna;
     }
 
-    public boolean isInscription() {
+    public int isInscription() {
         return isInscription;
     }
 
-    public void setInscription(boolean inscription) {
+    public void setInscription(int inscription) {
         isInscription = inscription;
     }
 

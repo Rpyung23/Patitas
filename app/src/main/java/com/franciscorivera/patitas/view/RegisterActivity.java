@@ -71,9 +71,12 @@ public class RegisterActivity extends AppCompatActivity
     /** true -> register    ---  false -> update**/
     private boolean banderaRegisterOrUpdate = true;
     private boolean banderaLectura = false;
+    private String oMascotaUpdate = null;
 
     private String[] oTypeMascotaList;
     private String[] oTypeTamaniosMascotaList;
+
+    private cMascota oMascota;
 
 
     @Override
@@ -114,6 +117,49 @@ public class RegisterActivity extends AppCompatActivity
         initCalendar();
 
         this.banderaRegisterOrUpdate = getIntent().getBooleanExtra("RegisterOrUpdate",true);
+        this.oMascotaUpdate = getIntent().getStringExtra("mascota");
+
+        if (!this.banderaRegisterOrUpdate){
+            initLecturaUpdate();
+        }
+
+    }
+
+    private void initLecturaUpdate()
+    {
+        this.oMascota = this.oMascotasSQL.readDataBase(this.oMascotaUpdate);
+
+
+        this.oAutoCompleteTextViewTypeMascota.setText(this.oMascota.getTypeMascota());
+        this.oAutoCompleteTextViewTypeTamanios.setText(this.oMascota.getTamMascota());
+        this.oTextInputEditTextCalendar.setText(this.oMascota.getDateMascota());
+        this.oTextInputEditTextNameMascota.setText(this.oMascota.getNameMascota());
+        this.oTextInputEditTextPesoMascota.setText(String.valueOf(this.oMascota.getPesoMascota()));
+        this.oTextInputEditTextNameDuenio.setText(this.oMascota.getoD().getNameDuenio());
+        this.oTextInputEditTextEmailDuenio.setText(this.oMascota.getoD().getEmailDuenio());
+        this.oTextInputEditTextPhoneDuenio.setText(this.oMascota.getoD().getPhoneDuenio());
+        this.oTextInputEditTextDirDuenio.setText(this.oMascota.getoD().getDirDuenio());
+
+        this.oMaterialRadioButtonChipYes.setChecked(true);
+        this.oMaterialRadioButtonChipNo.setChecked(false);
+
+        if (this.oMascota.isInscription() == 1){
+            this.oMaterialRadioButtonInscriptionYes.setChecked(true);
+        }else if (this.oMascota.isInscription() == 2){
+            this.oMaterialRadioButtonInscriptionNo.setChecked(false);
+        }else{
+            this.oMaterialRadioButtonInscriptionYesNo.setChecked(false);
+        }
+
+
+        if (this.oMascota.isVacuna() == 1){
+            this.oMaterialRadioButtonVacunaYes.setChecked(true);
+        }else if (this.oMascota.isVacuna() == 2){
+            this.oMaterialRadioButtonVacunaNo.setChecked(true);
+        }else{
+            this.oMaterialRadioButtonVacunaYesNo.setChecked(true);
+        }
+
 
     }
 
@@ -231,8 +277,24 @@ public class RegisterActivity extends AppCompatActivity
                     oM.setNameMascota(oTextInputEditTextNameMascota.getText().toString());
                     oM.setChip(oMaterialRadioButtonChipYes.isChecked() ? true : false);
 
-                    oM.setInscription(oMaterialRadioButtonInscriptionYes.isChecked() ? true : false);
-                    oM.setVacuna(oMaterialRadioButtonVacunaYes.isChecked() ? true : false);
+                    if (oMaterialRadioButtonInscriptionYes.isChecked()){
+                        oM.setInscription(1);
+                    }else if (oMaterialRadioButtonInscriptionNo.isChecked()){
+                        oM.setInscription(2);
+                    }else{
+                        oM.setInscription(3);
+                    }
+
+
+
+                    if (oMaterialRadioButtonVacunaYes.isChecked()){
+                        oM.setVacuna(1);
+                    }else if (oMaterialRadioButtonVacunaNo.isChecked()){
+                        oM.setVacuna(2);
+                    }else{
+                        oM.setVacuna(3);
+                    }
+
 
                     oM.setPesoMascota(Double.parseDouble(oTextInputEditTextPesoMascota.getText().toString()));
                     oM.setDateMascota(oTextInputEditTextCalendar.getText().toString());
