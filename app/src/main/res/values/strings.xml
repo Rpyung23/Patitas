@@ -31,8 +31,20 @@
     <string name="datos_duenio">Datos del dueño</string>
     <string name="question_delete">¿Esta seguro que desea eliminar la mascota?</string>
     <string name="accept">Aceptar</string>
-    <string-array name="typePets">
+    <string-array name="typePetsSearch">
         <item>Todos</item>
+        <item>Perro</item>
+        <item>Gato</item>
+        <item>Conejo</item>
+        <item>Tortuga</item>
+        <item>Serpiente</item>
+        <item>Hámster</item>
+        <item>Huron</item>
+        <item>Canario</item>
+        <item>Pez payaso</item>
+        <item>Loro</item>
+    </string-array>
+    <string-array name="typePets">
         <item>Perro</item>
         <item>Gato</item>
         <item>Conejo</item>

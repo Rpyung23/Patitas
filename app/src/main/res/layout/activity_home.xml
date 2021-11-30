@@ -51,7 +51,7 @@
                     android:layout_marginRight="@dimen/margin_bottom_min"
                     >
                 </TextView>
-                <com.google.android.material.textfield.TextInputLayout
+                <!--<com.google.android.material.textfield.TextInputLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
@@ -63,7 +63,16 @@
                         android:inputType="none"
                         >
                     </AutoCompleteTextView>
-                </com.google.android.material.textfield.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>-->
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/idAutoCompleteTypeAnimalList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="?actionBarSize"
+                    android:background="@drawable/border_element"
+                    >
+                </androidx.appcompat.widget.AppCompatSpinner>
+
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
 

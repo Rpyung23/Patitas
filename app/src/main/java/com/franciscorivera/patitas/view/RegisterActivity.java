@@ -1,7 +1,9 @@
 package com.franciscorivera.patitas.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatSpinner;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.icu.text.DateFormat;
 import android.os.Bundle;
@@ -37,8 +39,8 @@ import java.util.TimeZone;
 
 public class RegisterActivity extends AppCompatActivity
 {
-    private AutoCompleteTextView oAutoCompleteTextViewTypeMascota;
-    private AutoCompleteTextView oAutoCompleteTextViewTypeTamanios;
+    private AppCompatSpinner oAutoCompleteTextViewTypeMascota;
+    private AppCompatSpinner oAutoCompleteTextViewTypeTamanios;
 
     private MaterialToolbar oMaterialToolbar;
     private MaterialButton oMaterialButtonCancel;
@@ -129,9 +131,38 @@ public class RegisterActivity extends AppCompatActivity
     {
         this.oMascota = this.oMascotasSQL.readDataBase(this.oMascotaUpdate);
 
+        //this.oAutoCompleteTextViewTypeMascota.setText(this.oMascota.getTypeMascota());
+        //this.oAutoCompleteTextViewTypeTamanios.setText(this.oMascota.getTamMascota());
+        boolean banderaSearch = false;
+        int position = 0;
+        while (!banderaSearch)
+        {
+            Log.e("SEARCH",this.oMascota.getTypeMascota() +" == "+ oTypeMascotaList[position]);
+            if (this.oMascota.getTypeMascota().equals(oTypeMascotaList[position])){
+                banderaSearch = true;
+                this.oAutoCompleteTextViewTypeMascota.setSelection(position);
+            }else{
+                position++;
+            }
+        }
 
-        this.oAutoCompleteTextViewTypeMascota.setText(this.oMascota.getTypeMascota());
-        this.oAutoCompleteTextViewTypeTamanios.setText(this.oMascota.getTamMascota());
+        banderaSearch = false;
+        position = 0;
+
+        while (!banderaSearch)
+        {
+            if (this.oMascota.getTamMascota().equals(this.oTypeTamaniosMascotaList[position])){
+                banderaSearch = true;
+                this.oAutoCompleteTextViewTypeTamanios.setSelection(position);
+            }else{
+                position++;
+            }
+        }
+
+
+
+
+
         this.oTextInputEditTextCalendar.setText(this.oMascota.getDateMascota());
         this.oTextInputEditTextNameMascota.setText(this.oMascota.getNameMascota());
         this.oTextInputEditTextPesoMascota.setText(String.valueOf(this.oMascota.getPesoMascota()));
@@ -140,8 +171,8 @@ public class RegisterActivity extends AppCompatActivity
         this.oTextInputEditTextPhoneDuenio.setText(this.oMascota.getoD().getPhoneDuenio());
         this.oTextInputEditTextDirDuenio.setText(this.oMascota.getoD().getDirDuenio());
 
-        this.oMaterialRadioButtonChipYes.setChecked(true);
-        this.oMaterialRadioButtonChipNo.setChecked(false);
+        this.oMaterialRadioButtonChipYes.setChecked(this.oMascota.isChip());
+        this.oMaterialRadioButtonChipNo.setChecked(!this.oMascota.isChip() ? true : false);
 
         if (this.oMascota.isInscription() == 1){
             this.oMaterialRadioButtonInscriptionYes.setChecked(true);
@@ -211,9 +242,10 @@ public class RegisterActivity extends AppCompatActivity
     private void initAdapterAutocomplete()
     {
         ArrayAdapter<String> oStringArrayAdapterTypePets = new ArrayAdapter<>(RegisterActivity.this,
-                R.layout.list_item_textview,this.oTypeMascotaList);
+                android.R.layout.simple_spinner_dropdown_item,this.oTypeMascotaList);
+
         ArrayAdapter<String> oStringArrayAdapterTamanio = new ArrayAdapter<>(RegisterActivity.this,
-                R.layout.list_item_textview,this.oTypeTamaniosMascotaList);
+                android.R.layout.simple_spinner_dropdown_item,this.oTypeTamaniosMascotaList);
 
         this.oAutoCompleteTextViewTypeTamanios.setAdapter(oStringArrayAdapterTamanio);
         this.oAutoCompleteTextViewTypeMascota.setAdapter(oStringArrayAdapterTypePets);
@@ -233,21 +265,50 @@ public class RegisterActivity extends AppCompatActivity
             }
         });
 
-        this.oAutoCompleteTextViewTypeMascota.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        this.oAutoCompleteTextViewTypeMascota.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                oTypeMascota = oTypeMascotaList[position].toString();
+                //Toast.makeText(RegisterActivity.this, oTypeMascota, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+
+            }
+        });
+
+        /*this.oAutoCompleteTextViewTypeMascota.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
                 oTypeMascota = oTypeMascotaList[position].toString();
                 //Toast.makeText(RegisterActivity.this, oTypeMascota, Toast.LENGTH_SHORT).show();
             }
-        });
-
-        this.oAutoCompleteTextViewTypeTamanios.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        });*/
+        /*this.oAutoCompleteTextViewTypeTamanios.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
                 oTamanioMascota = oTypeTamaniosMascotaList[position].toString();
                 //Toast.makeText(RegisterActivity.this, oTamanioMascota, Toast.LENGTH_SHORT).show();
+            }
+        });*/
+
+        this.oAutoCompleteTextViewTypeTamanios.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                oTamanioMascota = oTypeTamaniosMascotaList[position].toString();
+                //Toast.makeText(RegisterActivity.this, oTamanioMascota, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+
             }
         });
 
@@ -301,8 +362,9 @@ public class RegisterActivity extends AppCompatActivity
 
                     if (oMascotasSQL.registerMascota(oM))
                     {
+                        setResultIntent();
                         Toast.makeText(RegisterActivity.this, "Mascota registrada", Toast.LENGTH_SHORT).show();
-                        //finish();
+                        finish();
                     }else{
                         Toast.makeText(RegisterActivity.this, "Error al registrar", Toast.LENGTH_SHORT).show();
                     }
@@ -322,11 +384,15 @@ public class RegisterActivity extends AppCompatActivity
         });
     }
 
+    private void setResultIntent()
+    {
+        Intent oIntent = new Intent();
+        oIntent.putExtra("lectura",banderaLectura);
+        this.setResult(Activity.RESULT_OK,oIntent);
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Intent oIntent = new Intent();
-        oIntent.putExtra("lectura",banderaLectura);
-        this.setResult(RESULT_OK,oIntent);
     }
 }

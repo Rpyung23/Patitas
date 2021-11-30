@@ -2,6 +2,7 @@ package com.franciscorivera.patitas.view;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,7 +32,7 @@ import java.util.ArrayList;
 public class HomeActivity extends AppCompatActivity implements OnClickListenerRecyclerView
 {
     private String[] oStringMascotas;
-    private AutoCompleteTextView oAutoCompleteTextView;
+    private AppCompatSpinner oAutoCompleteTextView;
     private ArrayAdapter<String> oStringArrayAdapter;
     private MaterialToolbar oMaterialToolbar;
     private RecyclerView oRecyclerViewMascotas;
@@ -43,6 +44,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListenerRe
     private int REQUESTCODEDETALLE = 500;
     private int oPositionSelectRecyclerView = 0;
     private String oStringMascotaSelect = null;
+    private int REGISTERMASCOTA = 800;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -54,11 +56,11 @@ public class HomeActivity extends AppCompatActivity implements OnClickListenerRe
         this.oRecyclerViewMascotas = findViewById(R.id.RecyclerViewAnimales);
         this.oTextViewTotalRecyclerView = findViewById(R.id.totRecyclerView);
         this.oMascotasSQL = new cMascotasSQL(HomeActivity.this);
-        this.oStringMascotas = getApplicationContext().getResources().getStringArray(R.array.typePets);
+        this.oStringMascotas = getApplicationContext().getResources().getStringArray(R.array.typePetsSearch);
         this.oStringArrayAdapter = new  ArrayAdapter<String>(HomeActivity.this,
-                R.layout.list_item_textview,oStringMascotas);
+                android.R.layout.simple_spinner_dropdown_item,oStringMascotas);
         this.oAutoCompleteTextView.setAdapter(this.oStringArrayAdapter);
-        this.oAutoCompleteTextView.setListSelection(0);
+        this.oAutoCompleteTextView.setSelection(0);
         this.oMascotaArrayList = new ArrayList<>();
         initRecyclerView();
 
@@ -68,12 +70,13 @@ public class HomeActivity extends AppCompatActivity implements OnClickListenerRe
     {
         oAdapterMascotas = new cAdapterMascotas(this.oMascotaArrayList,this,this.oRecyclerViewMascotas);
         this.oRecyclerViewMascotas.setAdapter(oAdapterMascotas);
-        getListMascotas(oStringMascotaSelect);
+        //getListMascotas(oStringMascotaSelect);
     }
 
     private void getListMascotas(String typeMascota)
     {
         ArrayList<cMascota>  oMas =  this.oMascotasSQL.readDataBaseAll(typeMascota);
+        this.oMascotaArrayList.clear();
         for (int i = 0;i<this.oMascotaArrayList.size();i++)
         {
             this.oMascotaArrayList.remove(i);
@@ -86,7 +89,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListenerRe
     @Override
     protected void onResume() {
         super.onResume();
-        this.oAutoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*this.oAutoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
@@ -94,7 +97,23 @@ public class HomeActivity extends AppCompatActivity implements OnClickListenerRe
                 oStringMascotaSelect = position == 0 ? null : oStringMascotas[position];
                 getListMascotas(oStringMascotaSelect);
             }
+        });*/
+
+        this.oAutoCompleteTextView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                oStringMascotaSelect = (position == 0 ? null : oStringMascotas[position]);
+                getListMascotas(oStringMascotaSelect);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
         });
+
+
         this.oMaterialToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item)
@@ -103,8 +122,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListenerRe
                 if (item.getItemId() == R.id.menu_add)
                 {
                     Intent oI = new Intent(HomeActivity.this,RegisterActivity.class);
-                    oI.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(oI);
+                    //oI.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivityForResult(oI,REGISTERMASCOTA);
                 }
                 return true;
             }
@@ -138,6 +157,12 @@ public class HomeActivity extends AppCompatActivity implements OnClickListenerRe
         if (requestCode == REQUESTCODEDETALLE && resultCode == Activity.RESULT_OK)
         {
             if (data!=null && data.getBooleanExtra("bandera",false) == true)
+            {
+                getListMascotas(oStringMascotaSelect);
+            }
+        }else if(requestCode == REGISTERMASCOTA && resultCode == Activity.RESULT_OK)
+        {
+            if (data!=null && data.getBooleanExtra("lectura",false) == true)
             {
                 getListMascotas(oStringMascotaSelect);
             }
