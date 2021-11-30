@@ -9,6 +9,7 @@ import android.icu.text.DateFormat;
 import android.os.Bundle;
 import android.text.Selection;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,6 +29,7 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.radiobutton.MaterialRadioButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.timepicker.MaterialTimePicker;
 
 import java.sql.Date;
@@ -36,9 +38,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity
 {
+
     private AppCompatSpinner oAutoCompleteTextViewTypeMascota;
     private AppCompatSpinner oAutoCompleteTextViewTypeTamanios;
 
@@ -55,6 +59,7 @@ public class RegisterActivity extends AppCompatActivity
     private TextInputEditText oTextInputEditTextEmailDuenio;
     private TextInputEditText oTextInputEditTextPhoneDuenio;
     private TextInputEditText oTextInputEditTextDirDuenio;
+    private TextInputLayout oTextInputLayoutEmail;
 
     private MaterialRadioButton oMaterialRadioButtonChipYes;
     private MaterialRadioButton oMaterialRadioButtonChipNo;
@@ -69,6 +74,7 @@ public class RegisterActivity extends AppCompatActivity
 
     private String oTypeMascota = null;
     private String oTamanioMascota = null;
+    private String oMascotaNameAux = null;
 
     /** true -> register    ---  false -> update**/
     private boolean banderaRegisterOrUpdate = true;
@@ -91,6 +97,8 @@ public class RegisterActivity extends AppCompatActivity
         this.oMaterialButtonCancel = findViewById(R.id.idbtnCancel);
         this.oMaterialButtonSave = findViewById(R.id.idbtnSave);
         this.oTextInputEditTextCalendar = findViewById(R.id.idTextInputCalendar);
+
+        this.oTextInputLayoutEmail = findViewById(R.id.idTextInputLayoutEmail);
 
         this.oTextInputEditTextNameMascota = findViewById(R.id.idRegisterNameMascota);
         this.oTextInputEditTextPesoMascota = findViewById(R.id.idRegisterPesoMascota);
@@ -130,7 +138,7 @@ public class RegisterActivity extends AppCompatActivity
     private void initLecturaUpdate()
     {
         this.oMascota = this.oMascotasSQL.readDataBase(this.oMascotaUpdate);
-
+        this.oMascotaNameAux = this.oMascota.getNameMascota();
         //this.oAutoCompleteTextViewTypeMascota.setText(this.oMascota.getTypeMascota());
         //this.oAutoCompleteTextViewTypeTamanios.setText(this.oMascota.getTamMascota());
         boolean banderaSearch = false;
@@ -317,60 +325,42 @@ public class RegisterActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
+                banderaLectura = false;
+                setResultIntent();
                 finish();
             }
         });
+
         this.oMaterialButtonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
                 banderaLectura = true;
-
-                if (banderaRegisterOrUpdate){
-                    cDuenio oD = new cDuenio();
-                    oD.setNameDuenio(oTextInputEditTextNameDuenio.getText().toString());
-                    oD.setDirDuenio(oTextInputEditTextDirDuenio.getText().toString());
-                    oD.setEmailDuenio(oTextInputEditTextEmailDuenio.getText().toString());
-                    oD.setPhoneDuenio(oTextInputEditTextPhoneDuenio.getText().toString());
-                    cMascota oM = new cMascota(oD);
-                    oM.setTypeMascota(oTypeMascota);
-                    oM.setTamMascota(oTamanioMascota);
-                    oM.setNameMascota(oTextInputEditTextNameMascota.getText().toString());
-                    oM.setChip(oMaterialRadioButtonChipYes.isChecked() ? true : false);
-
-                    if (oMaterialRadioButtonInscriptionYes.isChecked()){
-                        oM.setInscription(1);
-                    }else if (oMaterialRadioButtonInscriptionNo.isChecked()){
-                        oM.setInscription(2);
+                cMascota oMascotaRegiUpdate = getUpdateRegisterMascota();
+                if (oMascotaRegiUpdate != null)
+                {
+                    if (banderaRegisterOrUpdate){
+                        if (oMascotasSQL.registerMascota(oMascotaRegiUpdate))
+                        {
+                            setResultIntent();
+                            Toast.makeText(RegisterActivity.this, "Mascota registrada", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }else{
+                            Toast.makeText(RegisterActivity.this, "Error al registrar", Toast.LENGTH_SHORT).show();
+                        }
                     }else{
-                        oM.setInscription(3);
-                    }
 
-
-
-                    if (oMaterialRadioButtonVacunaYes.isChecked()){
-                        oM.setVacuna(1);
-                    }else if (oMaterialRadioButtonVacunaNo.isChecked()){
-                        oM.setVacuna(2);
-                    }else{
-                        oM.setVacuna(3);
-                    }
-
-
-                    oM.setPesoMascota(Double.parseDouble(oTextInputEditTextPesoMascota.getText().toString()));
-                    oM.setDateMascota(oTextInputEditTextCalendar.getText().toString());
-
-                    if (oMascotasSQL.registerMascota(oM))
-                    {
-                        setResultIntent();
-                        Toast.makeText(RegisterActivity.this, "Mascota registrada", Toast.LENGTH_SHORT).show();
-                        finish();
-                    }else{
-                        Toast.makeText(RegisterActivity.this, "Error al registrar", Toast.LENGTH_SHORT).show();
+                        if (oMascotasSQL.updateMascota(oMascotaRegiUpdate,oMascotaNameAux))
+                        {
+                            setResultIntent();
+                            Toast.makeText(RegisterActivity.this, "Mascota Actualizada", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }else{
+                            Toast.makeText(RegisterActivity.this, "Error al update", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }else{
-                    Toast.makeText(RegisterActivity.this, "UPDATE", Toast.LENGTH_SHORT).show();
-                    finish();
+                    Toast.makeText(RegisterActivity.this, "Error en el Formulario", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -384,15 +374,60 @@ public class RegisterActivity extends AppCompatActivity
         });
     }
 
+    private cMascota getUpdateRegisterMascota()
+    {
+        cDuenio oD = new cDuenio();
+        oD.setNameDuenio(oTextInputEditTextNameDuenio.getText().toString());
+        oD.setDirDuenio(oTextInputEditTextDirDuenio.getText().toString());
+        if(!validarEmail(oTextInputEditTextEmailDuenio.getText().toString()))
+        {
+            //oTextInputEditTextEmailDuenio.setError("Correo no válido");
+            oTextInputLayoutEmail.setErrorEnabled(true);
+            oTextInputLayoutEmail.setError("Correo no válido");
+            return null;
+        }
+        oD.setPhoneDuenio(oTextInputEditTextPhoneDuenio.getText().toString());
+        cMascota oM = new cMascota(oD);
+        oM.setTypeMascota(oTypeMascota);
+        oM.setTamMascota(oTamanioMascota);
+        oM.setNameMascota(oTextInputEditTextNameMascota.getText().toString());
+        oM.setChip(oMaterialRadioButtonChipYes.isChecked() ? true : false);
+
+        if (oMaterialRadioButtonInscriptionYes.isChecked()){
+            oM.setInscription(1);
+        }else if (oMaterialRadioButtonInscriptionNo.isChecked()){
+            oM.setInscription(2);
+        }else{
+            oM.setInscription(3);
+        }
+
+        if (oMaterialRadioButtonVacunaYes.isChecked()){
+            oM.setVacuna(1);
+        }else if (oMaterialRadioButtonVacunaNo.isChecked()){
+            oM.setVacuna(2);
+        }else{
+            oM.setVacuna(3);
+        }
+
+
+        oM.setPesoMascota(Double.parseDouble(oTextInputEditTextPesoMascota.getText().toString()));
+        oM.setDateMascota(oTextInputEditTextCalendar.getText().toString());
+
+        return oM;
+    }
+
     private void setResultIntent()
     {
         Intent oIntent = new Intent();
         oIntent.putExtra("lectura",banderaLectura);
+        oIntent.putExtra("mascota",this.oTextInputEditTextNameMascota.getText().toString());
         this.setResult(Activity.RESULT_OK,oIntent);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    private boolean validarEmail(String email) {
+        Pattern pattern = Patterns.EMAIL_ADDRESS;
+        return pattern.matcher(email).matches();
     }
+
+
 }

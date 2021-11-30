@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,6 +24,7 @@ import com.franciscorivera.patitas.adapter.cAdapterMascotas;
 import com.franciscorivera.patitas.interfaces.OnClickListenerRecyclerView;
 import com.franciscorivera.patitas.poo.cDuenio;
 import com.franciscorivera.patitas.poo.cMascota;
+import com.franciscorivera.patitas.sharedPreferences.cShared;
 import com.franciscorivera.patitas.sqlite.cMascotasSQL;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.textfield.TextInputLayout;
@@ -60,10 +62,34 @@ public class HomeActivity extends AppCompatActivity implements OnClickListenerRe
         this.oStringArrayAdapter = new  ArrayAdapter<String>(HomeActivity.this,
                 android.R.layout.simple_spinner_dropdown_item,oStringMascotas);
         this.oAutoCompleteTextView.setAdapter(this.oStringArrayAdapter);
-        this.oAutoCompleteTextView.setSelection(0);
+        this.oStringMascotaSelect = cShared.readShared(HomeActivity.this);
+        //this.oAutoCompleteTextView.setSelection(0);
+
+        initSpinner();
+
         this.oMascotaArrayList = new ArrayList<>();
         initRecyclerView();
 
+    }
+
+    private void initSpinner()
+    {
+        boolean banderaSearch = false;
+        int position = 0;
+        if (this.oStringMascotaSelect!= null){
+            while (!banderaSearch)
+            {
+
+                if (this.oStringMascotaSelect.equals(oStringMascotas[position])){
+                    banderaSearch = true;
+                    this.oAutoCompleteTextView.setSelection(position);
+                }else{
+                    position++;
+                }
+            }
+        }else{
+            this.oAutoCompleteTextView.setSelection(0);
+        }
     }
 
     private void initRecyclerView()
@@ -104,6 +130,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListenerRe
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
                 oStringMascotaSelect = (position == 0 ? null : oStringMascotas[position]);
+                cShared.registerShared(HomeActivity.this,oStringMascotaSelect);
                 getListMascotas(oStringMascotaSelect);
             }
 

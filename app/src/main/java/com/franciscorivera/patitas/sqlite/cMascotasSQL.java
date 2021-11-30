@@ -113,4 +113,29 @@ public class cMascotasSQL
         }
     }
 
+    public boolean updateMascota(cMascota oM,String name_aux){
+        this.oSqLiteDatabaseMascota = this.oMascotasDbHelper.getWritableDatabase();
+        try{
+            //this.oSqLiteDatabaseMascota.beginTransaction();
+            /*String sqlInsert = "insert into mascotas(name_mascota,type_mascota," +
+                    "date_mascota,chip,vacuna,inscription,tamnio,peso,name_duenio," +
+                    "email_duenio,phone_duenio,dir_duenio) values('"+oM.getNameMascota()+"','"+oM.getTypeMascota()+"'" +
+                    ",'"+oM.getDateMascota()+"',"+oM.isChip()+","+oM.isVacuna()+","+oM.isInscription()+"" +
+                    ",'"+oM.getTamMascota()+"',"+oM.getPesoMascota()+",'"+oM.getoD().getNameDuenio()+"'" +
+                    ",'"+oM.getoD().getEmailDuenio()+"','"+oM.getoD().getPhoneDuenio()+"','"+oM.getoD().getDirDuenio()+"')";*/
+            String sqlUpdate = "update mascotas set name_mascota = '"+oM.getNameMascota()+"',type_mascota = '"+oM.getTypeMascota()+"'," +
+                    "date_mascota = '"+oM.getDateMascota()+"',chip = "+oM.isChip()+",vacuna = "+oM.isVacuna()+"" +
+                    ",inscription = "+oM.isInscription()+",tamnio = '"+oM.getTamMascota()+"',peso = "+oM.getPesoMascota()+"," +
+                    "name_duenio = '"+oM.getoD().getNameDuenio()+"',email_duenio = '"+oM.getoD().getEmailDuenio()+"'," +
+                    "phone_duenio = '"+oM.getoD().getPhoneDuenio()+"',dir_duenio = '"+oM.getoD().getDirDuenio()+"' where name_mascota = '"+name_aux+"'";
+            Log.e("UPDATE",sqlUpdate);
+            this.oSqLiteDatabaseMascota.execSQL(sqlUpdate);
+            return true;
+        }catch (Exception e)
+        {
+            Log.e("UPDATE",e.getMessage());
+            return false;
+        }
+    }
+
 }

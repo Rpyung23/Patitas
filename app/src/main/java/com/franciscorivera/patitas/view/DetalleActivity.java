@@ -1,5 +1,6 @@
 package com.franciscorivera.patitas.view;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -58,6 +59,8 @@ public class DetalleActivity extends AppCompatActivity
     private MaterialButton oMaterialButtonAlertCancel;
     private TextInputEditText oTextInputEditTextClaveDelete;
     private boolean banderaDelete = false;
+    private int REQUESTUPDATEMASCOTA = 8000;
+    private boolean banderaLectura = false;
 
 
     @Override
@@ -83,16 +86,18 @@ public class DetalleActivity extends AppCompatActivity
         this.oMascotasSQL = new cMascotasSQL(DetalleActivity.this);
         this.oStringNameMascota = getIntent().getStringExtra("mascota");
 
-        this.oMascota = this.oMascotasSQL.readDataBase(this.oStringNameMascota);
+        //this.oMascota = this.oMascotasSQL.readDataBase(this.oStringNameMascota);
 
         this.oViewAlert = LayoutInflater.from(DetalleActivity.this).inflate(R.layout.view_delete,null,false);
 
-        initDatos();
+        initDatos(this.oStringNameMascota);
 
     }
 
-    private void initDatos()
+    private void initDatos(String name)
     {
+        this.oMascota = this.oMascotasSQL.readDataBase(name);
+
         this.oTextViewNameMascota.setText(this.oMascota.getNameMascota());
         this.oTextViewTypeMascota.setText(this.oMascota.getTypeMascota());
         this.oTextViewNacimiento.setText(this.oMascota.getDateMascota());
@@ -169,6 +174,24 @@ public class DetalleActivity extends AppCompatActivity
                 return true;
             }
         });
+
+        this.oMaterialToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                banderaDelete = true;
+                finishDeleteResult();
+                finish();
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        banderaDelete = true;
+        finishDeleteResult();
+        finish();
     }
 
     private void createAlertDelete(String name)
@@ -223,16 +246,29 @@ public class DetalleActivity extends AppCompatActivity
     {
         Intent oI = new Intent();
         oI.putExtra("bandera",banderaDelete);
+        //oI.putExtra("lectura",banderaLectura);
         setResult(Activity.RESULT_OK,oI);
     }
 
     private void starEditActivity()
     {
         Intent oI = new Intent(DetalleActivity.this,RegisterActivity.class);
-        oI.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //oI.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         oI.putExtra("RegisterOrUpdate",false);
         oI.putExtra("mascota",this.oMascota.getNameMascota());
-        startActivity(oI);
+        startActivityForResult(oI,REQUESTUPDATEMASCOTA);
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
+    {
+        if (requestCode == REQUESTUPDATEMASCOTA && resultCode == Activity.RESULT_OK)
+        {
+            if (data!=null && data.getBooleanExtra("lectura",false) ==  true)
+            {
+                initDatos(data.getStringExtra("mascota"));
+            }
+        }
+    }
 }

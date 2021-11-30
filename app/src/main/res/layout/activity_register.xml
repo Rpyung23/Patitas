@@ -258,9 +258,13 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:id="@+id/idTextInputLayoutEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_bottom_min_"
+                app:boxStrokeErrorColor="@android:color/holo_red_dark"
+                app:errorTextColor="@android:color/holo_red_dark"
+                app:errorIconTint="@android:color/holo_red_dark"
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
