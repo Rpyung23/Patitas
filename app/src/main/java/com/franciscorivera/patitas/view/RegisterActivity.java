@@ -49,16 +49,25 @@ public class RegisterActivity extends AppCompatActivity
     private MaterialToolbar oMaterialToolbar;
     private MaterialButton oMaterialButtonCancel;
     private MaterialButton oMaterialButtonSave;
-    private TextInputEditText oTextInputEditTextCalendar;
     private MaterialDatePicker oMaterialDatePickerNacimiento;
     private cMascotasSQL oMascotasSQL;
 
+    private TextInputEditText oTextInputEditTextCalendar;
     private TextInputEditText oTextInputEditTextNameMascota;
     private TextInputEditText oTextInputEditTextPesoMascota;
     private TextInputEditText oTextInputEditTextNameDuenio;
     private TextInputEditText oTextInputEditTextEmailDuenio;
     private TextInputEditText oTextInputEditTextPhoneDuenio;
     private TextInputEditText oTextInputEditTextDirDuenio;
+
+
+    private TextInputLayout oTextInputEditTextCalendarLayout;
+    private TextInputLayout oTextInputEditTextNameMascotaLayout;
+    private TextInputLayout oTextInputEditTextPesoMascotaLayout;
+    private TextInputLayout oTextInputEditTextNameDuenioLayout;
+    private TextInputLayout oTextInputEditTextPhoneDuenioLayout;
+    private TextInputLayout oTextInputEditTextDirDuenioLayout;
+
     private TextInputLayout oTextInputLayoutEmail;
 
     private MaterialRadioButton oMaterialRadioButtonChipYes;
@@ -117,6 +126,18 @@ public class RegisterActivity extends AppCompatActivity
         this.oMaterialRadioButtonInscriptionYes = findViewById(R.id.idVacunaInscriptionYes);
         this.oMaterialRadioButtonInscriptionNo = findViewById(R.id.idVacunaInscriptionNo);
         this.oMaterialRadioButtonInscriptionYesNo = findViewById(R.id.idVacunaInscriptionYesNo);
+
+
+
+
+        oTextInputEditTextCalendarLayout = findViewById(R.id.oTextInputEditTextCalendarLayout);
+        oTextInputEditTextNameMascotaLayout = findViewById(R.id.oTextInputEditTextNameMascotaLayout);
+        oTextInputEditTextPesoMascotaLayout = findViewById(R.id.oTextInputEditTextPesoMascotaLayout);
+        oTextInputEditTextNameDuenioLayout = findViewById(R.id.oTextInputEditTextNameDuenioLayout);
+        oTextInputEditTextPhoneDuenioLayout = findViewById(R.id.oTextInputEditTextPhoneDuenioLayout);
+        oTextInputEditTextDirDuenioLayout = findViewById(R.id.oTextInputEditTextDirDuenioLayout);
+
+
 
         this.oTypeMascotaList = getApplicationContext().getResources().getStringArray(R.array.typePets);
         this.oTypeTamaniosMascotaList = getApplicationContext().getResources().getStringArray(R.array.tamPets);
@@ -376,44 +397,71 @@ public class RegisterActivity extends AppCompatActivity
 
     private cMascota getUpdateRegisterMascota()
     {
-        cDuenio oD = new cDuenio();
-        oD.setNameDuenio(oTextInputEditTextNameDuenio.getText().toString());
-        oD.setDirDuenio(oTextInputEditTextDirDuenio.getText().toString());
-        if(!validarEmail(oTextInputEditTextEmailDuenio.getText().toString()))
+        if (!this.oTextInputEditTextNameMascota.getText().toString().isEmpty()
+                && !this.oTextInputEditTextCalendar.getText().toString().isEmpty()
+                && !this.oTextInputEditTextPesoMascota.getText().toString().isEmpty()
+                && !this.oTextInputEditTextNameDuenio.getText().toString().isEmpty()
+                && !this.oTextInputEditTextEmailDuenio.getText().toString().isEmpty()
+                && !this.oTextInputEditTextPhoneDuenio.getText().toString().isEmpty()
+                && !this.oTextInputEditTextDirDuenio.getText().toString().isEmpty())
         {
-            //oTextInputEditTextEmailDuenio.setError("Correo no válido");
-            oTextInputLayoutEmail.setErrorEnabled(true);
-            oTextInputLayoutEmail.setError("Correo no válido");
+            cDuenio oD = new cDuenio();
+            oD.setNameDuenio(oTextInputEditTextNameDuenio.getText().toString());
+            oD.setDirDuenio(oTextInputEditTextDirDuenio.getText().toString());
+            if(!validarEmail(oTextInputEditTextEmailDuenio.getText().toString()))
+            {
+                //oTextInputEditTextEmailDuenio.setError("Correo no válido");
+                oTextInputLayoutEmail.setErrorEnabled(true);
+                oTextInputLayoutEmail.setError("Correo no válido");
+                return null;
+            }
+            oD.setPhoneDuenio(oTextInputEditTextPhoneDuenio.getText().toString());
+            cMascota oM = new cMascota(oD);
+            oM.setTypeMascota(oTypeMascota);
+            oM.setTamMascota(oTamanioMascota);
+            oM.setNameMascota(oTextInputEditTextNameMascota.getText().toString());
+            oM.setChip(oMaterialRadioButtonChipYes.isChecked() ? true : false);
+
+            if (oMaterialRadioButtonInscriptionYes.isChecked()){
+                oM.setInscription(1);
+            }else if (oMaterialRadioButtonInscriptionNo.isChecked()){
+                oM.setInscription(2);
+            }else{
+                oM.setInscription(3);
+            }
+
+            if (oMaterialRadioButtonVacunaYes.isChecked()){
+                oM.setVacuna(1);
+            }else if (oMaterialRadioButtonVacunaNo.isChecked()){
+                oM.setVacuna(2);
+            }else{
+                oM.setVacuna(3);
+            }
+
+
+            oM.setPesoMascota(Double.parseDouble(oTextInputEditTextPesoMascota.getText().toString()));
+            oM.setDateMascota(oTextInputEditTextCalendar.getText().toString());
+
+            return oM;
+
+        }else{
+            oTextInputEditTextCalendarLayout.setErrorEnabled(true);
+            oTextInputEditTextNameMascotaLayout.setErrorEnabled(true);
+            oTextInputEditTextPesoMascotaLayout.setErrorEnabled(true);
+            oTextInputEditTextNameDuenioLayout.setErrorEnabled(true);
+
+            oTextInputEditTextPhoneDuenioLayout.setErrorEnabled(true);
+            oTextInputEditTextDirDuenioLayout.setErrorEnabled(true);
+
+            oTextInputEditTextCalendarLayout.setError(RegisterActivity.this.getResources().getText(R.string.empity));
+            oTextInputEditTextNameMascotaLayout.setError(RegisterActivity.this.getResources().getText(R.string.empity));
+            oTextInputEditTextPesoMascotaLayout.setError(RegisterActivity.this.getResources().getText(R.string.empity));
+            oTextInputEditTextNameDuenioLayout.setError(RegisterActivity.this.getResources().getText(R.string.empity));
+
+            oTextInputEditTextPhoneDuenioLayout.setError(RegisterActivity.this.getResources().getText(R.string.empity));
+            oTextInputEditTextDirDuenioLayout.setError(RegisterActivity.this.getResources().getText(R.string.empity));
             return null;
         }
-        oD.setPhoneDuenio(oTextInputEditTextPhoneDuenio.getText().toString());
-        cMascota oM = new cMascota(oD);
-        oM.setTypeMascota(oTypeMascota);
-        oM.setTamMascota(oTamanioMascota);
-        oM.setNameMascota(oTextInputEditTextNameMascota.getText().toString());
-        oM.setChip(oMaterialRadioButtonChipYes.isChecked() ? true : false);
-
-        if (oMaterialRadioButtonInscriptionYes.isChecked()){
-            oM.setInscription(1);
-        }else if (oMaterialRadioButtonInscriptionNo.isChecked()){
-            oM.setInscription(2);
-        }else{
-            oM.setInscription(3);
-        }
-
-        if (oMaterialRadioButtonVacunaYes.isChecked()){
-            oM.setVacuna(1);
-        }else if (oMaterialRadioButtonVacunaNo.isChecked()){
-            oM.setVacuna(2);
-        }else{
-            oM.setVacuna(3);
-        }
-
-
-        oM.setPesoMascota(Double.parseDouble(oTextInputEditTextPesoMascota.getText().toString()));
-        oM.setDateMascota(oTextInputEditTextCalendar.getText().toString());
-
-        return oM;
     }
 
     private void setResultIntent()

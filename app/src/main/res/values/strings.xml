@@ -31,6 +31,7 @@
     <string name="datos_duenio">Datos del dueño</string>
     <string name="question_delete">¿Esta seguro que desea eliminar la mascota?</string>
     <string name="accept">Aceptar</string>
+    <string name="empity">No se Admiten datos vacios</string>
     <string-array name="typePetsSearch">
         <item>Todos</item>
         <item>Perro</item>
